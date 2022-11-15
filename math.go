@@ -40,3 +40,16 @@ func ApplyFuncToArr(f func(float64) float64, arr []float64) []float64 {
 	}
 	return res
 }
+
+// Convert any function that maps a float64 to a float64 into a function
+// that maps the same function over an array of float64's.
+func ConvertToArrFunc(f func(float64) float64) func([]float64) []float64 {
+	new_func := func(arr []float64) []float64 {
+		res := make([]float64, len(arr))
+		for i, e := range arr {
+			res[i] = f(e)
+		}
+		return res
+	}
+	return new_func
+}
